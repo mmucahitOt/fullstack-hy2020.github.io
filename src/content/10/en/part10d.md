@@ -774,6 +774,8 @@ The format of the result object and the arguments are based on the [Relay's Grap
 
 Let's say that we want to get the next set of items <i>after</i> the last item of the current set, which is the "zeit/swr" repository. We can set the <em>after</em> argument of the query as the value of the <em>endCursor</em> like this:
 
+!!! Note: The first and after variables must have defined values. Although they are marked as nullable in the query definition, sending them as { "first": null } causes the backend to return an error. You should either provide actual values or omit the variables entirely. This section can be completed without setting either of them to null.
+
 ```javascript
 {
   repositories(first: 2, after: "WyJ6ZWl0LnN3ciIsMTU4OTU0MzkzMzg2N10=") {
@@ -794,6 +796,7 @@ Let's say that we want to get the next set of items <i>after</i> the last item o
   }
 }
 ```
+
 
 Now that we have the next two items and we can keep on doing this until the <em>hasNextPage</em> has the value <em>false</em>, meaning that we have reached the end of the list. To dig deeper into cursor-based pagination, read Shopify's article [Pagination with Relative Cursors](https://shopify.engineering/pagination-relative-cursors). It provides great details on the implementation itself and the benefits over the traditional index-based pagination.
 
